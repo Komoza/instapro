@@ -196,3 +196,10 @@
   width: 100%;
   text-align: center;
 }
+
+.add-post-textarea {
+  font-family: "StratosSkyeng";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+}

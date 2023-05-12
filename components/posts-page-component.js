@@ -9,7 +9,7 @@ export function renderPostsPageComponent({ appEl }) {
    */
   const appHtml = `
               <div class="page-container">
-                <div class="header-container"></div>
+              <div class="header-container"></div>
                 <ul class="posts">
                 </ul>
               </div>`;
@@ -17,7 +17,7 @@ export function renderPostsPageComponent({ appEl }) {
   appEl.innerHTML = appHtml;
   const postsHTML = appEl.querySelector('.posts')
   let postHTML = '';
-  console.log(posts[0]);
+  
   posts.forEach((post) => {
     postHTML = `
       <li class="post">
