@@ -45,6 +45,7 @@ p {
 .button,
 .secondary-button {
   display: block;
+  text-align: center;
   padding: 10px 13px 13px;
   font-size: 18px;
   line-height: 22px;
