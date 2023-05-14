@@ -204,14 +204,15 @@
 
 .file-upload-image-conrainer {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
 }
 
 .file-upload-image {
-  width: 100px;
-  height: 100px;
+  width: 500px;
+  height: 100%;
   object-fit: cover;
-  margin-right: 10px;
   border: 1px solid gray;
   border-radius: 5px;
 }
@@ -234,4 +235,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.file-upload-remove-button {
+  align-self: end;
 }

@@ -16,6 +16,15 @@ export function renderUserPostsPageComponent({ appEl }) {
   let postHTML = '';
   
   posts.forEach((post) => {
+    let likes = '0';
+    if (post.likes.length === 1) {
+      likes = post.likes[0].name
+    }else if (post.likes.length === 2) {
+      likes = `${post.likes[0].name}, ${post.likes[1].name}`;
+    } else if (post.likes.length > 2) {
+      likes = `${post.likes[0].name}, ${post.likes[1].name} и еще ${post.likes.length - 2} человек`;
+    }
+
     postHTML = `
       <li class="post">
         <div class="post-header" data-user-id=${post.user.id}>
@@ -35,7 +44,7 @@ export function renderUserPostsPageComponent({ appEl }) {
             }">
           </button>
           <p class="post-likes-text">
-            Нравится: <strong>${post.likes.length}</strong>
+            Нравится: <strong>${likes}</strong>
           </p>
         </div>
           <p class="post-text">

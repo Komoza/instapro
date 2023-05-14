@@ -119,8 +119,9 @@ const renderApp = () => {
           description: description,
           imageUrl: imageUrl,
           token: getToken(),
+        }).then(() => {
+          goToPage(POSTS_PAGE);
         });
-        goToPage(POSTS_PAGE);
       },
     });
   }
