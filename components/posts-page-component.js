@@ -1,7 +1,6 @@
-import { USER_POSTS_PAGE, POSTS_PAGE, LOADING_PAGE  } from "../routes.js";
+import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, getToken } from "../index.js";
-import { likeApi, dislikeApi } from "../api.js";
+import { posts, goToPage, getToken, user } from "../index.js";
 import { switchLikes } from "../switchLikes.js";
 
 
@@ -41,14 +40,14 @@ export function renderPostsPageComponent({ appEl }) {
         </div>
         <div class="post-likes">
           <img class="preloader-likes --display-off" src="./assets/images/preloader-likes.gif">
-          <button 
+          ${user ? `<button 
             data-post-id="${post.id}" 
             data-is-liked="${post.isLiked}"
             data-likes="${post.likes.length}" 
             class="like-button">
               <img src="./assets/images/${
                 post.isLiked ? "like-active.svg" : "like-not-active.svg"
-              }">
+              }">` : ''}
           </button>
           <p class="post-likes-text">
             Нравится: <strong>${likes}</strong>
