@@ -1,5 +1,8 @@
 @media (max-width: 499px) {
-    .post {
-        width: 100%;
-    }
+  .post {
+    width: 100%;
+  }
+  .form {
+    width: 100%;
+  }
 }

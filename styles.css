@@ -165,11 +165,14 @@
 .add-post-sign:hover {
   scale: 1.3;
 }
-
+.form-wrap {
+  display: flex;
+  justify-content: center;
+}
 .form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 500px;
 }
 
 .form-title {
@@ -227,3 +230,8 @@
   font-size: 18px;
 }
 
+.add-post-form-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
