@@ -2,6 +2,7 @@ import { USER_POSTS_PAGE, POSTS_PAGE, LOADING_PAGE  } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken } from "../index.js";
 import { likeApi, dislikeApi } from "../api.js";
+import { switchLikes } from "../switchLikes.js";
 
 
 export function renderPostsPageComponent({ appEl }) {
@@ -21,7 +22,6 @@ export function renderPostsPageComponent({ appEl }) {
   let postHTML = "";
 
   posts.forEach((post) => {
-    console.log(post.likes.length);
     let likes = '0';
     if (post.likes.length === 1) {
       likes = post.likes[0].name
@@ -42,7 +42,8 @@ export function renderPostsPageComponent({ appEl }) {
         <div class="post-likes">
           <button 
             data-post-id="${post.id}" 
-            data-is-liked="${post.isLiked}" 
+            data-is-liked="${post.isLiked}"
+            data-likes="${post.likes.length}" 
             class="like-button">
               <img src="./assets/images/${
                 post.isLiked ? "like-active.svg" : "like-not-active.svg"
@@ -78,27 +79,14 @@ export function renderPostsPageComponent({ appEl }) {
 
   for (let userEl of document.querySelectorAll(".like-button")) {
     userEl.addEventListener("click", () => {
-      const isLiked = userEl.dataset.isLiked === "true" ? true : false;
-      const postId = userEl.dataset.postId;
-      if (isLiked) {
-        goToPage(LOADING_PAGE);
-        dislikeApi({ postId: postId, token: getToken() })
-          .then(() => {
-            goToPage(POSTS_PAGE);
-          })
-          .catch(() => {
-            goToPage(POSTS_PAGE);
-          });
-      } else {
-        goToPage(LOADING_PAGE);
-        likeApi({ postId: postId, token: getToken() })
-          .then(() => {
-            goToPage(POSTS_PAGE);
-          })
-          .catch(() => {
-            goToPage(POSTS_PAGE);
-          });
+      const sentData = {
+        isLiked: userEl.dataset.isLiked === "true" ? true : false,
+        likes: userEl.dataset.likes,
+        postId: userEl.dataset.postId,
+        token: getToken(),
+        img: userEl.querySelector('img'),
       }
+      switchLikes(sentData);
     });
   }
 }
