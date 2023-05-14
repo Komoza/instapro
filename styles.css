@@ -33,8 +33,13 @@
   cursor: pointer;
 }
 
-.logout-button {
+.header-buttons-wrap {
   width: 130px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout-button {
   text-align: right;
 }
 

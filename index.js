@@ -70,7 +70,6 @@ export const goToPage = (newPage, data) => {
     if (newPage === USER_POSTS_PAGE) {
       page = LOADING_PAGE;
       renderApp();
-
       return getUserPosts({ userId: data.userId, token: getToken() }).then(
         (newPosts) => {
           page = USER_POSTS_PAGE;
