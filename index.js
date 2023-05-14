@@ -125,6 +125,9 @@ const renderApp = () => {
           token: getToken(),
         }).then(() => {
           goToPage(POSTS_PAGE);
+        })
+        .catch(() => {
+          document.querySelector('.form-error').classList.remove('--display-off')
         });
       },
     });

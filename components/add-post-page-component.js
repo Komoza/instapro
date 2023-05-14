@@ -18,6 +18,9 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
               rows="4"
               placeholder="Опишите фотографию..."
             ></textarea>
+            <div class="form-error --display-off">
+              Добавьте фотографию и описание к ней
+            </div>
             <button class="button" id="add-button">Добавить</button>
           </div>
         </div>
