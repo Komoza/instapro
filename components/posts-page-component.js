@@ -1,9 +1,8 @@
-import { USER_POSTS_PAGE } from "../routes.js";
+import { USER_POSTS_PAGE, POSTS_PAGE, LOADING_PAGE  } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken } from "../index.js";
 import { likeApi, dislikeApi } from "../api.js";
-import { POSTS_PAGE } from "../routes.js";
-import { LOADING_PAGE } from "../routes.js";
+
 
 export function renderPostsPageComponent({ appEl }) {
   /**

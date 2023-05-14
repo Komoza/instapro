@@ -1,6 +1,7 @@
-import { USER_POSTS_PAGE } from "../routes.js";
+import { USER_POSTS_PAGE, POSTS_PAGE, LOADING_PAGE  } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken } from "../index.js";
+import { likeApi, dislikeApi } from "../api.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
   const appHtml = `
@@ -56,14 +57,30 @@ export function renderUserPostsPageComponent({ appEl }) {
       });
     });
   }
-
+  
   for (let userEl of document.querySelectorAll(".like-button")) {
     userEl.addEventListener("click", () => {
-      likeApi({id, token: getToken() }).then(data => {
-        if (data === 'ok') {
-          console.log('лайк поставлен');
-        }
-      })
+      const isLiked = userEl.dataset.isLiked === "true" ? true : false;
+      const postId = userEl.dataset.postId;
+      if (isLiked) {
+        goToPage(LOADING_PAGE);
+        dislikeApi({ postId: postId, token: getToken() })
+          .then(() => {
+            goToPage(POSTS_PAGE);
+          })
+          .catch(() => {
+            goToPage(POSTS_PAGE);
+          });
+      } else {
+        goToPage(LOADING_PAGE);
+        likeApi({ postId: postId, token: getToken() })
+          .then(() => {
+            goToPage(POSTS_PAGE);
+          })
+          .catch(() => {
+            goToPage(POSTS_PAGE);
+          });
+      }
     });
   }
 }
