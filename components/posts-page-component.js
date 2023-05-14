@@ -40,6 +40,7 @@ export function renderPostsPageComponent({ appEl }) {
           <img class="post-image" src="${post.imageUrl}">
         </div>
         <div class="post-likes">
+          <img class="preloader-likes --display-off" src="./assets/images/preloader-likes.gif">
           <button 
             data-post-id="${post.id}" 
             data-is-liked="${post.isLiked}"
@@ -79,6 +80,8 @@ export function renderPostsPageComponent({ appEl }) {
 
   for (let userEl of document.querySelectorAll(".like-button")) {
     userEl.addEventListener("click", () => {
+      userEl.classList.add('--display-off');
+      userEl.previousElementSibling.classList.remove('--display-off');
       const sentData = {
         isLiked: userEl.dataset.isLiked === "true" ? true : false,
         likes: userEl.dataset.likes,
