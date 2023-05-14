@@ -84,22 +84,26 @@ export function renderAuthPageComponent({ appEl, setUser }) {
       setError("");
 
       if (isLoginMode) {
-        const login = document.getElementById("login-input").value;
-        const password = document.getElementById("password-input").value;
+        const login = document.getElementById("login-input");
+        const password = document.getElementById("password-input");
 
-        if (!login) {
-          alert("Введите логин");
+        if (!login.value) {
+          login.classList.add('error-input');
           return;
+        } else {
+          login.classList.remove('error-input');
         }
 
-        if (!password) {
-          alert("Введите пароль");
+        if (!password.value) {
+          password.classList.add('error-input');
           return;
+        } else {
+          password.classList.remove('error-input');
         }
 
         loginUser({
-          login: login,
-          password: password,
+          login: login.value,
+          password: password.value,
         })
           .then((user) => {
             setUser(user.user);
@@ -109,21 +113,28 @@ export function renderAuthPageComponent({ appEl, setUser }) {
             setError(error.message);
           });
       } else {
-        const login = document.getElementById("login-input").value;
-        const name = document.getElementById("name-input").value;
-        const password = document.getElementById("password-input").value;
-        if (!name) {
-          alert("Введите имя");
-          return;
+        const login = document.getElementById("login-input");
+        const name = document.getElementById("name-input");
+        const password = document.getElementById("password-input");
+
+        if (!name.value) {
+          name.classList.add('error-input');
+          return
+        } else {
+          name.classList.remove('error-input');
         }
-        if (!login) {
-          alert("Введите логин");
+        if (!login.value) {
+          login.classList.add('error-input');
           return;
+        } else {
+          login.classList.remove('error-input');
         }
 
-        if (!password) {
-          alert("Введите пароль");
+        if (!password.value) {
+          password.classList.add('error-input');
           return;
+        } else {
+          password.classList.remove('error-input');
         }
 
         if (!imageUrl) {
@@ -132,9 +143,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         }
 
         registerUser({
-          login: login,
-          password: password,
-          name: name,
+          login: login.value,
+          password: password.value,
+          name: name.value,
           imageUrl,
         })
           .then((user) => {

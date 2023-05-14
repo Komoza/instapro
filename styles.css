@@ -251,3 +251,7 @@
   padding-left: 0px;
   padding-bottom: 5px;
 }
+
+.error-input {
+  border: 2px solid #fd8e8e !important;
+}
