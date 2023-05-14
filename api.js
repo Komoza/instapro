@@ -32,7 +32,7 @@ export function getUserPosts({ userId, token }) {
       if (response.status === 200) {
         return response.json();
       } else {
-        throw Error();
+        throw Error('Ошибка');
       }
     })
     .then((data) => {
@@ -99,3 +99,37 @@ export function uploadImage({ file }) {
     return response.json();
   });
 }
+
+export const likeApi = ({postId, token}) => {
+  return fetch(`${postsHost}/${postId}/like`, 
+  {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    }
+  })
+  .then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      throw Error ('Лайк не поставлен')
+    }
+  });
+};
+
+export const dislikeApi = ({postId, token}) => {
+  return fetch(`${postsHost}/${postId}/dislike`, 
+  {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    }
+  })
+  .then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      throw Error ('Лайк не поставлен')
+    }
+  });
+};

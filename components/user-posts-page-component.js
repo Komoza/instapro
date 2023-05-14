@@ -1,6 +1,6 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage, getToken } from "../index.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
   const appHtml = `
@@ -54,6 +54,16 @@ export function renderUserPostsPageComponent({ appEl }) {
       goToPage(USER_POSTS_PAGE, {
         userId: userEl.dataset.userId,
       });
+    });
+  }
+
+  for (let userEl of document.querySelectorAll(".like-button")) {
+    userEl.addEventListener("click", () => {
+      likeApi({id, token: getToken() }).then(data => {
+        if (data === 'ok') {
+          console.log('лайк поставлен');
+        }
+      })
     });
   }
 }

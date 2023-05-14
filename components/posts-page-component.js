@@ -1,6 +1,9 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage, getToken } from "../index.js";
+import { likeApi, dislikeApi } from "../api.js";
+import { POSTS_PAGE } from "../routes.js";
+import { LOADING_PAGE } from "../routes.js";
 
 export function renderPostsPageComponent({ appEl }) {
   /**
@@ -15,9 +18,9 @@ export function renderPostsPageComponent({ appEl }) {
               </div>`;
 
   appEl.innerHTML = appHtml;
-  const postsHTML = appEl.querySelector('.posts')
-  let postHTML = '';
-  
+  const postsHTML = appEl.querySelector(".posts");
+  let postHTML = "";
+
   posts.forEach((post) => {
     postHTML = `
       <li class="post">
@@ -29,8 +32,13 @@ export function renderPostsPageComponent({ appEl }) {
           <img class="post-image" src="${post.imageUrl}">
         </div>
         <div class="post-likes">
-          <button data-post-id="${post.id}" class="like-button">
-            <img src="./assets/images/like-active.svg">
+          <button 
+            data-post-id="${post.id}" 
+            data-is-liked="${post.isLiked}" 
+            class="like-button">
+              <img src="./assets/images/${
+                post.isLiked ? "like-active.svg" : "like-not-active.svg"
+              }">
           </button>
           <p class="post-likes-text">
             Нравится: <strong>${post.likes.length}</strong>
@@ -48,7 +56,6 @@ export function renderPostsPageComponent({ appEl }) {
     postsHTML.innerHTML += postHTML;
   });
 
-
   renderHeaderComponent({
     element: document.querySelector(".header-container"),
   });
@@ -58,6 +65,32 @@ export function renderPostsPageComponent({ appEl }) {
       goToPage(USER_POSTS_PAGE, {
         userId: userEl.dataset.userId,
       });
+    });
+  }
+
+  for (let userEl of document.querySelectorAll(".like-button")) {
+    userEl.addEventListener("click", () => {
+      const isLiked = userEl.dataset.isLiked === "true" ? true : false;
+      const postId = userEl.dataset.postId;
+      if (isLiked) {
+        goToPage(LOADING_PAGE);
+        dislikeApi({ postId: postId, token: getToken() })
+          .then(() => {
+            goToPage(POSTS_PAGE);
+          })
+          .catch(() => {
+            goToPage(POSTS_PAGE);
+          });
+      } else {
+        goToPage(LOADING_PAGE);
+        likeApi({ postId: postId, token: getToken() })
+          .then(() => {
+            goToPage(POSTS_PAGE);
+          })
+          .catch(() => {
+            goToPage(POSTS_PAGE);
+          });
+      }
     });
   }
 }
