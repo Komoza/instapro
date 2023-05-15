@@ -1,6 +1,6 @@
 import { USER_POSTS_PAGE, POSTS_PAGE, LOADING_PAGE  } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, getToken } from "../index.js";
+import { posts, goToPage, getToken, formatDate } from "../index.js";
 import { likeApi, dislikeApi } from "../api.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
@@ -52,7 +52,7 @@ export function renderUserPostsPageComponent({ appEl }) {
               ${post.description}
           </p>
           <p class="post-date">
-            ${post.createdAt}
+            ${formatDate(post.createdAt)}
           </p>
       </li>
     `;
