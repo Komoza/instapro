@@ -1,6 +1,7 @@
 import { uploadImage } from "../api.js";
 
 export function renderUploadImageComponent({ element, onImageUrlChange }) {
+
   let imageUrl = "";
 
   const render = () => {
@@ -10,8 +11,8 @@ export function renderUploadImageComponent({ element, onImageUrlChange }) {
         imageUrl
           ? `
           <div class="file-upload-image-conrainer">
+          <button class="file-upload-remove-button button">Заменить фото</button>
             <img class="file-upload-image" src="${imageUrl}">
-            <button class="file-upload-remove-button button">Заменить фото</button>
           </div>
           `
           : `

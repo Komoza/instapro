@@ -2,7 +2,6 @@
   Это стили Дизайн системы, сквозные стили для элементов интерфейса
   всего приложения: шрифты, кнопки, инпуты и так далее
 */
-
 @font-face {
   font-family: "StratosSkyeng";
   font-style: normal;
@@ -45,6 +44,7 @@ p {
 .button,
 .secondary-button {
   display: block;
+  text-align: center;
   padding: 10px 13px 13px;
   font-size: 18px;
   line-height: 22px;
@@ -52,7 +52,9 @@ p {
   background-color: #565eef;
   color: #ffffff;
   border: none;
+  cursor: pointer;
 }
+
 
 .link-button {
   display: inline;
@@ -61,6 +63,9 @@ p {
   background: none;
   color: #565eef;
   cursor: pointer;
+}
+.link-button:hover {
+  text-decoration: underline;
 }
 
 .button:hover {
@@ -114,7 +119,6 @@ p {
 .textarea {
   padding: 15px;
   resize: none;
-  width: 100%;
   height: 100px;
 }
 

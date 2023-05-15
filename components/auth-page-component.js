@@ -7,50 +7,59 @@ export function renderAuthPageComponent({ appEl, setUser }) {
   let imageUrl = "";
 
   const renderForm = () => {
-    const appHtml = `
-      <div class="page-container">
-          <div class="header-container"></div>
-          <div class="form">
-              <h3 class="form-title">
-                ${
-                  isLoginMode
-                    ? "Вход в&nbsp;Instapro"
-                    : "Регистрация в&nbsp;Instapro"
-                }
-                </h3>
-              <div class="form-inputs">
-    
-                  ${
-                    !isLoginMode
-                      ? `
-                      <div class="upload-image-container"></div>
-                      <input type="text" id="name-input" class="input" placeholder="Имя" />
-                      `
-                      : ""
-                  }
-                  
-                  <input type="text" id="login-input" class="input" placeholder="Логин" />
-                  <input type="password" id="password-input" class="input" placeholder="Пароль" />
-                  
-                  <div class="form-error"></div>
-                  
-                  <button class="button" id="login-button">${
-                    isLoginMode ? "Войти" : "Зарегистрироваться"
-                  }</button>
-              </div>
-            
-              <div class="form-footer">
-                <p class="form-footer-title">
-                  ${isLoginMode ? "Нет аккаунта?" : "Уже есть аккаунт?"}
-                  <button class="link-button" id="toggle-button">
-                    ${isLoginMode ? "Зарегистрироваться." : "Войти."}
-                  </button>
-                </p> 
-               
-              </div>
-          </div>
-      </div>    
-`;
+    const appHtml = `<div class="page-container">
+    <div class="header-container"></div>
+    <div class="form-wrap">
+      <div class="form">
+        <h3 class="form-title">
+        ${isLoginMode ? "Вход в&nbsp;Instapro" : "Регистрация в&nbsp;Instapro"}
+        </h3>
+        <div class="form-inputs">
+          ${
+            !isLoginMode
+              ? `
+          <div class="upload-image-container"></div>
+          <input
+            type="text"
+            id="name-input"
+            class="input"
+            placeholder="Имя"
+          />
+          `
+              : ""
+          }
+
+          <input
+            type="text"
+            id="login-input"
+            class="input"
+            placeholder="Логин"
+          />
+          <input
+            type="password"
+            id="password-input"
+            class="input"
+            placeholder="Пароль"
+          />
+
+          <div class="form-error"></div>
+
+          <button class="button" id="login-button">
+            ${isLoginMode ? "Войти" : "Зарегистрироваться"}
+          </button>
+        </div>
+
+        <div class="form-footer">
+          <p class="form-footer-title">
+            ${isLoginMode ? "Нет аккаунта?" : "Уже есть аккаунт?"}
+            <button class="link-button" id="toggle-button">
+              ${isLoginMode ? "Зарегистрироваться." : "Войти."}
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>`;
 
     appEl.innerHTML = appHtml;
 
@@ -79,22 +88,26 @@ export function renderAuthPageComponent({ appEl, setUser }) {
       setError("");
 
       if (isLoginMode) {
-        const login = document.getElementById("login-input").value;
-        const password = document.getElementById("password-input").value;
+        const login = document.getElementById("login-input");
+        const password = document.getElementById("password-input");
 
-        if (!login) {
-          alert("Введите логин");
+        if (!login.value) {
+          login.classList.add("error-input");
           return;
+        } else {
+          login.classList.remove("error-input");
         }
 
-        if (!password) {
-          alert("Введите пароль");
+        if (!password.value) {
+          password.classList.add("error-input");
           return;
+        } else {
+          password.classList.remove("error-input");
         }
 
         loginUser({
-          login: login,
-          password: password,
+          login: login.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          password: password.value,
         })
           .then((user) => {
             setUser(user.user);
@@ -104,21 +117,28 @@ export function renderAuthPageComponent({ appEl, setUser }) {
             setError(error.message);
           });
       } else {
-        const login = document.getElementById("login-input").value;
-        const name = document.getElementById("name-input").value;
-        const password = document.getElementById("password-input").value;
-        if (!name) {
-          alert("Введите имя");
+        const login = document.getElementById("login-input");
+        const name = document.getElementById("name-input");
+        const password = document.getElementById("password-input");
+
+        if (!name.value) {
+          name.classList.add("error-input");
           return;
+        } else {
+          name.classList.remove("error-input");
         }
-        if (!login) {
-          alert("Введите логин");
+        if (!login.value) {
+          login.classList.add("error-input");
           return;
+        } else {
+          login.classList.remove("error-input");
         }
 
-        if (!password) {
-          alert("Введите пароль");
+        if (!password.value) {
+          password.classList.add("error-input");
           return;
+        } else {
+          password.classList.remove("error-input");
         }
 
         if (!imageUrl) {
@@ -127,9 +147,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         }
 
         registerUser({
-          login: login,
-          password: password,
-          name: name,
+          login: login.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          password: password.value,
+          name: name.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
           imageUrl,
         })
           .then((user) => {

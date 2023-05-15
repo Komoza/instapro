@@ -1,0 +1,5 @@
+@media (max-width: 499px) {
+  .post, .form, .file-upload-image {
+    width: 100%;
+  }
+}
