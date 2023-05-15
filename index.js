@@ -143,3 +143,5 @@ const renderApp = () => {
 };
 
 goToPage(POSTS_PAGE);
+
+// Корректная дата

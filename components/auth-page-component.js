@@ -12,10 +12,12 @@ export function renderAuthPageComponent({ appEl, setUser }) {
     <div class="form-wrap">
       <div class="form">
         <h3 class="form-title">
-        ${ isLoginMode ? "Вход в&nbsp;Instapro" : "Регистрация в&nbsp;Instapro" }
+        ${isLoginMode ? "Вход в&nbsp;Instapro" : "Регистрация в&nbsp;Instapro"}
         </h3>
         <div class="form-inputs">
-          ${ !isLoginMode ? `
+          ${
+            !isLoginMode
+              ? `
           <div class="upload-image-container"></div>
           <input
             type="text"
@@ -23,7 +25,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
             class="input"
             placeholder="Имя"
           />
-          ` : "" }
+          `
+              : ""
+          }
 
           <input
             type="text"
@@ -41,7 +45,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
           <div class="form-error"></div>
 
           <button class="button" id="login-button">
-            ${ isLoginMode ? "Войти" : "Зарегистрироваться" }
+            ${isLoginMode ? "Войти" : "Зарегистрироваться"}
           </button>
         </div>
 
@@ -88,21 +92,21 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         const password = document.getElementById("password-input");
 
         if (!login.value) {
-          login.classList.add('error-input');
+          login.classList.add("error-input");
           return;
         } else {
-          login.classList.remove('error-input');
+          login.classList.remove("error-input");
         }
 
         if (!password.value) {
-          password.classList.add('error-input');
+          password.classList.add("error-input");
           return;
         } else {
-          password.classList.remove('error-input');
+          password.classList.remove("error-input");
         }
 
         loginUser({
-          login: login.value,
+          login: login.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
           password: password.value,
         })
           .then((user) => {
@@ -118,23 +122,23 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         const password = document.getElementById("password-input");
 
         if (!name.value) {
-          name.classList.add('error-input');
-          return
-        } else {
-          name.classList.remove('error-input');
-        }
-        if (!login.value) {
-          login.classList.add('error-input');
+          name.classList.add("error-input");
           return;
         } else {
-          login.classList.remove('error-input');
+          name.classList.remove("error-input");
+        }
+        if (!login.value) {
+          login.classList.add("error-input");
+          return;
+        } else {
+          login.classList.remove("error-input");
         }
 
         if (!password.value) {
-          password.classList.add('error-input');
+          password.classList.add("error-input");
           return;
         } else {
-          password.classList.remove('error-input');
+          password.classList.remove("error-input");
         }
 
         if (!imageUrl) {
@@ -143,9 +147,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         }
 
         registerUser({
-          login: login.value,
+          login: login.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
           password: password.value,
-          name: name.value,
+          name: name.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
           imageUrl,
         })
           .then((user) => {

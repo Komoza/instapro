@@ -45,7 +45,10 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
 
   document.getElementById("add-button").addEventListener("click", () => {
     onAddPostClick({
-      description: appEl.querySelector(".add-post-textarea").value,
+      description: appEl
+        .querySelector(".add-post-textarea")
+        .value.replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;"),
       imageUrl: imageUrl,
     });
   });
