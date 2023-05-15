@@ -16,6 +16,9 @@ import {
   removeUserFromLocalStorage,
   saveUserToLocalStorage,
 } from "./helpers.js";
+// import { format } from 'date-fns';
+import { ru } from "date-fns/locale";
+import { formatDistanceToNow } from "date-fns";
 
 export let user = getUserFromLocalStorage();
 export let page = null;
@@ -23,7 +26,7 @@ export let posts = [];
 
 export const changeLocalPosts = (newPosts) => {
   posts = newPosts;
-}
+};
 
 export const getToken = () => {
   const token = user ? `Bearer ${user.token}` : undefined;
@@ -34,6 +37,10 @@ export const logout = () => {
   user = null;
   removeUserFromLocalStorage();
   goToPage(POSTS_PAGE);
+};
+
+export const formatDate = (date) => {
+  return formatDistanceToNow(new Date(date), { addSuffix: true, locale: ru });
 };
 
 /**
@@ -123,12 +130,15 @@ const renderApp = () => {
           description: description,
           imageUrl: imageUrl,
           token: getToken(),
-        }).then(() => {
-          goToPage(POSTS_PAGE);
         })
-        .catch(() => {
-          document.querySelector('.form-error').classList.remove('--display-off')
-        });
+          .then(() => {
+            goToPage(POSTS_PAGE);
+          })
+          .catch(() => {
+            document
+              .querySelector(".form-error")
+              .classList.remove("--display-off");
+          });
       },
     });
   }
